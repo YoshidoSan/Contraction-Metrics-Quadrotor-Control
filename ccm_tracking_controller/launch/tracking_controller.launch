@@ -1,0 +1,4 @@
+<launch>
+	<rosparam file="$(find ccm_tracking_controller)/cfg/ccm_controller_param.yaml" ns="ccm_controller"/>
+	<node pkg="ccm_tracking_controller" type="ccm_tracking_controller_node" name="ccm_tracking_controller_node" output="screen" />
+</launch>

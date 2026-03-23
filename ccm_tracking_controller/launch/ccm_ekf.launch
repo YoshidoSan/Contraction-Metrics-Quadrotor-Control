@@ -1,0 +1,8 @@
+<launch>
+  <node pkg="robot_localization" type="ekf_localization_node" name="ekf_node" clear_params="true">
+    <rosparam command="load" file="$(find ccm_tracking_controller)/cfg/ekf_setup.yaml" />
+    <!-- remap topic names -->
+    <remap from="odometry/filtered" to="ekf/state"/>
+    <remap from="accel/filtered" to="ekf/accel"/>
+  </node>
+</launch>

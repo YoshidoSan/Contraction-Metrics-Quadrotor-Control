@@ -1,0 +1,53 @@
+<launch>
+  <!--node pkg="mslquad"
+        type="se3controller"
+        name="se3controller"
+        output="screen">
+    <param name="KP" value="4.0" />
+    <param name="KV" value="6.0" />
+    <param name="KR" value="0.3" />
+    <param name="KW" value="0.05" />
+    <param name="M" value="1.04" />
+    <param name="TCOEFF" value="4.4" />
+    <param name="MODEL" value="mslquad"/>
+  </node-->
+
+
+
+    <include file="$(find mavros)/launch/px4.launch">
+      <arg name="fcu_url" value="udp://:14540@127.0.0.1:14557" />
+    </include>
+
+    <param name="use_sim_clock" type="bool" value="true" />
+
+
+    <node pkg="asl_flight" type="asl_traj_ctrl" name="asl_traj_ctrl" output="screen" >
+      <param name="TRAJ" type="str" value="POLY"/>
+      <param name="YAW_INIT" value="1.5708" />
+      <param name="DO_TAKEOFF" type ="bool" value="true" />
+      <param name="TAKEOFF_HGT" value="1.5" />
+      <param name="TAKEOFF_TIME" value="10.0" />
+      <param name="START_DELAY" value="5.0"/>
+      <param name="CIRCLE_T" value="10.0"/>
+      <param name="RADIUS_X" value="1.0" />
+      <param name="RADIUS_Y" value="0.7" />
+      <param name="POLY_SCALE" value="1.2"/>
+      <param name="FZ_EST_N" value="8.0" />
+      <param name="FZ_CTRL_N" value="2.0" />
+    </node>
+
+    <!-- <node pkg="asl_flight" type="se3_traj_ctrl" name="se3_traj_ctrl" output="screen" >
+      <param name="KP" value="12.0" />
+      <param name="KV" value="1.5" />
+      <param name="KR" value="3.5" />
+      <param name="KW" value="1.2" />
+      <param name="M" value="1.517" />
+      <param name="TRAJ" type="str" value="CIRCLE" />
+      <param name="CIRCLE_FREQ" value="10"/>
+      <param name="TCOEFF" value="6.4" />
+      <param name="MODEL" value="iris"/>
+    </node> -->
+
+    <!-- param name="use_sim_clock" type="bool" value="true" -->
+
+</launch>

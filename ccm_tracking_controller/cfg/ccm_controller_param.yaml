@@ -1,0 +1,9 @@
+# wartosci z ssingh -> filtr uśredniający dla odczytu i dla kontrolera
+FZ_EST_N: 8.0
+FZ_CTRL_N: 2.0
+# should be value (thrust percent) at which drone is hovering
+hover_thrust: 0.6474       # 0.6474 for 0.3   #0.71 for 0.0
+# display message
+verbose: true
+# thrust K
+K_THR: 0.01 #0.005 

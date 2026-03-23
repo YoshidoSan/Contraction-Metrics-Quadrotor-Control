@@ -1,0 +1,20 @@
+<launch>
+	<!-- cc, tracking controller -->
+	<rosparam file="$(find ccm_tracking_controller)/cfg/ccm_controller_param.yaml" ns="ccm_controller"/>
+	<node pkg="ccm_tracking_controller" type="ccm_tracking_controller_node" name="ccm_tracking_controller_node" output="screen" />
+	<!-- kalman filter -->
+	<node pkg="robot_localization" type="ekf_localization_node" name="ekf_node" clear_params="true">
+    <rosparam command="load" file="$(find ccm_tracking_controller)/cdg/ekf_setup.yaml" />
+    <remap from="odometry/filtered" to="ekf/state"/>
+	<remap from="accel/filtered" to="ekf/accel"/>
+    </node>
+	<!-- other stack nodes -->
+	<rosparam file="$(find autonomous_flight)/cfg/dynamic_navigation/fake_detector_param.yaml" />
+	<rosparam file="$(find autonomous_flight)/cfg/dynamic_navigation/flight_base.yaml" ns="autonomous_flight"/>
+	<rosparam file="$(find autonomous_flight)/cfg/dynamic_navigation/planner_param.yaml" />
+	<rosparam file="$(find autonomous_flight)/cfg/dynamic_navigation/mapping_param.yaml" ns="/dynamic_map" />
+	<rosparam file="$(find autonomous_flight)/cfg/dynamic_navigation/dynamic_detector_param.yaml" ns="/onboard_detector" />
+	<!-- <node pkg="onboard_detector" type="yolo_detector_node.py" name="yolo_detector_node" output="screen" /> -->
+	<node pkg="autonomous_flight" type="dynamic_navigation_node" name="dynamic_navigation_node" output="screen" />
+    
+</launch>
